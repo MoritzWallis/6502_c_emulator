@@ -1,0 +1,146 @@
+0 00 BRK Force Break
+1 01 0RA-zpx "OR" Accum with Memory
+5 05 ORA-zp
+6 06 ASL-zp Shift Left One Bit. (Mem)
+8 08 PHI Push Processor Status on Stack
+9 09 ORA-imm
+10 OA ASL-A Shift Left One Bit (Accum)
+13 OD ORA-abs
+14 OE ASL-abs
+16 10 BPL Branch on Plus
+17 11 0RA-zpy
+21 15 ORA-zpx
+22 16 ASL-zpx
+24 18 CLC Clear Carry Flag
+25 19 ORA-aby
+29 ID ORA-abx
+30 IE ASL-abx
+32 20 JSR Jump to Subroutine
+33 21 AND-zpx "AND" Accumulator with Memory
+36 24 BIT-zp Test Bits in Accum with Memory
+37 25 AND-zp
+38 26 ROL-zp Rotate One Bit Left (Mem)
+40 28 PLP Pull Processor Status from Stack
+41 29 AND-imm
+42 2A ROL-A Rotate One Bit Left (Accum)
+44 2C BIT-abs
+45 2D AND-abs
+46 2E ROL-abs
+48 30 BMI Branch on Minus
+49 31 AND-zpy
+53 35 AND-zpx
+54 36 ROL-zpx
+56 38 SEC Set Carry Flag
+57 39 AND-aby
+61 31 AND-abx
+62 32 ROL-abx              !
+64 40 RTI Return from Interrupt
+65 41 EOR-zpx "Exclusive Or" Accum with Memory
+69 45 EOR-zp
+70 46 LSR-zp Shift One Bit Right (Mem)
+72 48 PHA Push Accum onto Stack
+73 49 EOR-IMH
+74 4A LSR-A Shift One B it Right (Accum)
+76 4C JMP-abs Jump
+77 4D EOR-abs
+78 4E LSR-abs
+80 50 BVC Branch on Overflow Clear
+81 51 EOR-zpy
+85 55 EOR-zpx
+86 56 LSR-zpx
+88 58 CLI Clear Interrupt Disable B it
+89 59 EOR-aby
+93 5D EOR-abx
+94 5E LSR-AES,X
+96 60 RTS Return from Subroutine
+97 61 ADC-zpx Add Memory to Accum with Carry
+101 65 ADC-zp
+104 68 PLA Pull Accumulator from Stack
+105 69 ADC-imm
+108 6C JMP-ind
+109 6D ADC-abs
+112 70 BVS Branch on Overflow Set
+113 71 ADC-zpy
+117 75 ADC-zpx
+120 78 SEI Set Interrupt Disable Status
+121 79 ADC-zpy
+125 70 LI ADC-abx
+129 81 STA-zpx Store Accum in Memory
+132 84 STY-zp
+133 85 STA-zp
+134 86 STX-zp
+136 88 DEY
+138 8A TXA
+140 8C STY-abs
+141 8D STA-abs
+142 8E STX-abs
+144 90 BCC
+145 91 STA-zpy
+148 94 STY-zpx
+149 95 STA-zpx
+150 96 STX-zpy
+152 98 TYA
+153 99 STA-aby
+154 9A TXS
+157 9D STA-abx
+160 A0 LDY-imm
+161 A1 LDA-zpx
+162 A2 LDX-imm
+164 A4 LDY-zp
+165 A5 LDA-zp
+166 A6 LDX-zp
+168 A8 TAY
+169 A9 LDA-imm
+170 AA TAX
+172 AC LDY-abs
+173 AD LDA-abs
+174 AE LDX-zpx
+176 B0 BCS
+171 B1 LDA-zpy
+180 B4 LDY-zpx
+181 B5 LDA-zpx
+182 B6 LDX-zpy
+184 B8 CLV
+185 B9 LDA-aby
+186 BA TSX
+188 DC LDY-abx
+189 BD LDA-abx
+190 BE LDX-aby
+192 CO CPY-imm
+193 Cl CMP-zpx
+196 C4 CPY-zp
+197 C5 CMP-zp
+198 C6 DEC-zp
+200 C8 INY
+201 C9 CMP-imm
+202 CA DEX
+204 CC CPY-abs
+205 CD CMP-abs
+206 CE DEC-abs
+208 DO BNE
+209 D1 CMP-zpy
+213 D5 CMP-zpx
+214 D6 DEC-zpx
+215 D8 CLD
+217 D9 CMP-aby
+221 DD CMP-abx
+222 DE DEC-abx
+224 EO CPX-imm
+225 El SBC-zpx
+228 E4 CPX-zp
+229 E5 SBC-zp
+230 E6 IMC-zp
+232 E8 INX
+233 E9 SBC-imm
+234 EA NOP
+236 EC CPX-abs
+237 ED SBC-abs
+238 EE INC-abs
+240 FO BEQ Branch If Equal (Result - 0)
+241 F1 SBC-zpy
+245 F5 SBC-zpx
+246 F6 INC-zpx
+248 F8 SLD Set Decimal Mode
+249 F9 SBC-aby
+253 FD SBC-abx
+254 FE INC-abx
