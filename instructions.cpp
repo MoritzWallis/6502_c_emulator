@@ -75,7 +75,7 @@ void Dodgy6502::add_all_instructions(){
     
     add_instruction(6, "ASL", &Dodgy6502::zp, &Dodgy6502::ASL, 0, "0x06 ASL-zp: Shift Left One Bit. (Mem)");
     
-    add_instruction(8, "PHI", &Dodgy6502::imp, &Dodgy6502::PHI, 0, "0x08 PHI: Push Processor Status on Stack");
+    add_instruction(8, "PHI", &Dodgy6502::imp, &Dodgy6502::PHP, 0, "0x08 PHI: Push Processor Status on Stack");
     
     add_instruction(9, "ORA", &Dodgy6502::imm, &Dodgy6502::ORA, 0, "0x09 ORA-imm: NO DESCRIPTION");
     
@@ -199,7 +199,7 @@ void Dodgy6502::add_all_instructions(){
     
     add_instruction(121, "ADC", &Dodgy6502::zpy, &Dodgy6502::ADC, 0, "0x79 ADC-zpy: NO DESCRIPTION");
     
-    add_instruction(125, "LI", &Dodgy6502::imp, &Dodgy6502::LI, 0, "0x70 LI: ADC-abx");
+    add_instruction(125, "ADC", &Dodgy6502::imp, &Dodgy6502::ADC, 0, "0x7D : ADC-abx");
     
     add_instruction(129, "STA", &Dodgy6502::zpx, &Dodgy6502::STA, 0, "0x81 STA-zpx: Store Accum in Memory");
     
@@ -329,7 +329,7 @@ void Dodgy6502::add_all_instructions(){
     
     add_instruction(229, "SBC", &Dodgy6502::zp, &Dodgy6502::SBC, 0, "0xE5 SBC-zp: NO DESCRIPTION");
     
-    add_instruction(230, "IMC", &Dodgy6502::zp, &Dodgy6502::IMC, 0, "0xE6 IMC-zp: NO DESCRIPTION");
+    add_instruction(230, "INC", &Dodgy6502::zp, &Dodgy6502::INC, 0, "0xE6 INC-zp: NO DESCRIPTION");
     
     add_instruction(232, "INX", &Dodgy6502::imp, &Dodgy6502::INX, 0, "0xE8 INX: NO DESCRIPTION");
     
@@ -351,7 +351,7 @@ void Dodgy6502::add_all_instructions(){
     
     add_instruction(246, "INC", &Dodgy6502::zpx, &Dodgy6502::INC, 0, "0xF6 INC-zpx: NO DESCRIPTION");
     
-    add_instruction(248, "SLD", &Dodgy6502::imp, &Dodgy6502::SLD, 0, "0xF8 SLD: Set Decimal Mode");
+    add_instruction(248, "SED", &Dodgy6502::imp, &Dodgy6502::SED, 0, "0xF8 SED: Set Decimal Mode");
     
     add_instruction(249, "SBC", &Dodgy6502::aby, &Dodgy6502::SBC, 0, "0xF9 SBC-aby: NO DESCRIPTION");
     

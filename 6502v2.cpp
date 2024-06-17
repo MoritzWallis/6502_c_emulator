@@ -54,3 +54,8 @@ void Dodgy6502::run(){
     }
 }
 
+int main(int argc, char* argv[]){
+    Dodgy6502 cpu;
+    cpu.run();
+    return 0;
+}

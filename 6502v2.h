@@ -79,7 +79,7 @@ public:
         //byte izy(); // Indirect Y == zpy()
 
     // Instructions:
-    char ADC(); char AND(); char ASL(); char BCC(); char BCS(); char BEQ(); char BIT(); char BMI(); char BNE(); char BPL(); char BRK(); char BVC(); char BVS(); char CLC(); char CLD(); char CLI(); char CLV(); char CMP(); char CPX(); char CPY(); char DEC(); char DEX(); char DEY(); char EOR(); char INC(); char INX(); char INY(); char JMP(); char JSR(); char LDA(); char LDX(); char LDY(); char LSR(); char NOP(); char ORA(); char PHA(); char PHP(); char PLA(); char PLP(); char ROL(); char ROR(); char RTI(); char RTS(); char SBC(); char SEC(); char SED(); char SEI(); char STA(); char STX(); char STY(); char TAX(); char TAY(); char TSX(); char TXA(); char TXS(); char TYA();
+    byte ADC(); byte AND(); byte ASL(); byte BCC(); byte BCS(); byte BEQ(); byte BIT(); byte BMI(); byte BNE(); byte BPL(); byte BRK(); byte BVC(); byte BVS(); byte CLC(); byte CLD(); byte CLI(); byte CLV(); byte CMP(); byte CPX(); byte CPY(); byte DEC(); byte DEX(); byte DEY(); byte EOR(); byte INC(); byte INX(); byte INY(); byte JMP(); byte JSR(); byte LDA(); byte LDX(); byte LDY(); byte LSR(); byte NOP(); byte ORA(); byte PHA(); byte PHP(); byte PLA(); byte PLP(); byte ROL(); byte ROR(); byte RTI(); byte RTS(); byte SBC(); byte SEC(); byte SED(); byte SEI(); byte STA(); byte STX(); byte STY(); byte TAX(); byte TAY(); byte TSX(); byte TXA(); byte TXS(); byte TYA();
 
     // Opcode lookup table (array of function pointers)
     static Instruction instructions[256];

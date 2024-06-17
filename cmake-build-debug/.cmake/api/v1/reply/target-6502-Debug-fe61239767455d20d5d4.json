@@ -102,8 +102,7 @@
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				1,
-				5
+				1
 			]
 		}
 	],
@@ -137,11 +136,6 @@
 			"compileGroupIndex" : 0,
 			"path" : "impl_inst.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "impl_inst.h",
-			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
