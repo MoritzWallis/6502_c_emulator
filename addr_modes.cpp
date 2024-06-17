@@ -28,12 +28,14 @@ byte Dodgy6502::zpy(){
     return 0;
 }
 
+/*
 byte Dodgy6502::abs(){
     abs_addr = memory[pc] | (memory[pc+1] << 8);
     pc += 2;
     fetched = memory[abs_addr];
     return 0;
 }
+*/
 
 byte Dodgy6502::abx(){
     abs_addr = (memory[pc] | (memory[pc+1] << 8)) + x;
@@ -57,6 +59,7 @@ byte Dodgy6502::ind(){
     return 0;
 }
 
+/*
 // adds x to indirect addr / zero page
 byte Dodgy6502::izx(){
     fetched = ((memory[pc] | (memory[pc+1] << 8)) + x); // just reusing variables
@@ -66,6 +69,7 @@ byte Dodgy6502::izx(){
     return 0;
 }
 
+
 // adds y to ZP addr / zero page
 byte Dodgy6502::izy(){
     fetched = (memory[pc] | (memory[pc+1] << 8));
@@ -74,3 +78,4 @@ byte Dodgy6502::izy(){
     fetched = memory[abs_addr];
     return 0;
 }
+*/

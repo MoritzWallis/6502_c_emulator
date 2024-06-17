@@ -1,0 +1,18 @@
+# ninja log v5
+16	462	7401045669655697	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+6	536	7401045670410842	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c
+14	429	7401046435598073	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+3	506	7401046436256303	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c
+4	436	7401047139256294	CMakeFiles/6502.dir/addr_modes.cpp.obj	6b9a6091fdc3b71
+21	503	7401047139914401	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+10	587	7401047140686317	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c
+4	344	7401048622116009	CMakeFiles/6502.dir/addr_modes.cpp.obj	6b9a6091fdc3b71
+15	382	7401048622498162	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+10	464	7401048623242471	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c
+22	453	7401051836450679	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+6	493	7401051836854381	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c
+10	399	7401051888074315	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+3	331	7401052520558845	CMakeFiles/6502.dir/addr_modes.cpp.obj	6b9a6091fdc3b71
+10	540	7403311175309351	CMakeFiles/6502.dir/addr_modes.cpp.obj	6b9a6091fdc3b71
+15	580	7403311175711099	CMakeFiles/6502.dir/impl_inst.cpp.obj	d6ec7f6f7afcacda
+4	593	7403311175831818	CMakeFiles/6502.dir/6502v2.cpp.obj	6bd44bc481b23d7c

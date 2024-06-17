@@ -1,11 +1,11 @@
-# include "impl_inst.h"
+#include "6502v2.h"
 #include <exception>
 
 # define NEGATIVE(_a) (_a & 0x80)
 # define ZERO(_a) (_a == 0)
 
 // add with carry
-char DDodgy6502::ADC(){
+char Dodgy6502::ADC() {
     temp = a + fetched + read_flag(C);
     a = temp & 0x00FF;
 
@@ -18,7 +18,7 @@ char DDodgy6502::ADC(){
 }
 
 // and (with accumulator)
-char DDodgy6502::AND(){
+char Dodgy6502::AND() {
     a &= fetched;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -26,13 +26,13 @@ char DDodgy6502::AND(){
 }
 
 // arithmetic shift left
-char DDodgy6502::ASL(){
+char Dodgy6502::ASL() {
     temp = fetched << 1;
     set_flag(FLAGS6502::C, temp & 0xFF00);
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
 
-    if(current_instruction->addr_mode == &DDodgy6502::imp)
+    if(current_instruction->addr_mode == &imp)
         a = temp;
     else
         memory[abs_addr] = temp;
@@ -41,28 +41,28 @@ char DDodgy6502::ASL(){
 }
 
 // branch on carry clear
-char DDodgy6502::BCC(){
+char Dodgy6502::BCC() {
     if(!read_flag(FLAGS6502::C))
         pc += (signed char)fetched;
     return 0;
 }
 
 // branch on carry set
-char DDodgy6502::BCS(){
+char Dodgy6502::BCS() {
     if(read_flag(FLAGS6502::C))
         pc += (signed char)fetched;
     return 0;
 }
 
 // branch on equal (zero set)
-char DDodgy6502::BEQ(){
+char Dodgy6502::BEQ() {
     if(read_flag(FLAGS6502::Z))
         pc += (signed char)fetched;
     return 0;
 }
 
 // bit test
-char DDodgy6502::BIT(){
+char Dodgy6502::BIT() {
     set_flag(FLAGS6502::V, fetched & (1 << 6));
     set_flag(FLAGS6502::N, fetched & (1 << 7));
     set_flag(FLAGS6502::Z, fetched & a);
@@ -70,71 +70,71 @@ char DDodgy6502::BIT(){
 }
 
 // branch on minus (negative set)
-char DDodgy6502::BMI(){
+char Dodgy6502::BMI() {
     if(read_flag(FLAGS6502::N))
         pc += (signed char)fetched;
     return 0;
 }
 
 // branch on not equal (zero clear)
-char DDodgy6502::BNE(){
+char Dodgy6502::BNE() {
     if(!read_flag(FLAGS6502::Z))
         pc += (signed char)fetched;
     return 0;
 }
 
 // branch on plus (negative clear)
-char DDodgy6502::BPL(){
+char Dodgy6502::BPL() {
     if(!read_flag(FLAGS6502::N))
         pc += (signed char)fetched;
     return 0;
 }
 
 // break / interrupt
-char DDodgy6502::BRK(){
+char Dodgy6502::BRK() {
     throw std::string("BRK instruction not implemented");
 }
 
 // branch on overflow clear
-char DDodgy6502::BVC(){
+char Dodgy6502::BVC() {
     if(!read_flag(FLAGS6502::V))
         pc += (signed char)fetched;
     return 0;
 }
 
 // branch on overflow set
-char DDodgy6502::BVS(){
+char Dodgy6502::BVS() {
     if(read_flag(FLAGS6502::V))
         pc += (signed char)fetched;
     return 0;
 }
 
 // clear carry
-char DDodgy6502::CLC(){
+char Dodgy6502::CLC() {
     set_flag(FLAGS6502::C, false);
     return 0;
 }
 
 // clear decimal
-char DDodgy6502::CLD(){
+char Dodgy6502::CLD() {
     set_flag(FLAGS6502::D, false);
     return 0;
 }
 
 // clear interrupt disable
-char DDodgy6502::CLI(){
+char Dodgy6502::CLI() {
     set_flag(FLAGS6502::I, false);
     return 0;
 }
 
 // clear overflow
-char DDodgy6502::CLV(){
+char Dodgy6502::CLV() {
     set_flag(FLAGS6502::V, false);
     return 0;
 }
 
 // compare (with accumulator)
-char DDodgy6502::CMP(){  // TODO CRITICAL: UNSIGNED FLAG SETTING
+char Dodgy6502::CMP() {  // TODO CRITICAL: UNSIGNED FLAG SETTING
     temp = a - fetched;
     set_flag(FLAGS6502::N, NEGATIVE(temp));
     set_flag(FLAGS6502::Z, ZERO(temp));
@@ -143,7 +143,7 @@ char DDodgy6502::CMP(){  // TODO CRITICAL: UNSIGNED FLAG SETTING
 }
 
 // compare with X
-char DDodgy6502::CPX(){
+char Dodgy6502::CPX() {
     temp = x - fetched;
     set_flag(FLAGS6502::N, NEGATIVE(temp));
     set_flag(FLAGS6502::Z, ZERO(temp));
@@ -152,7 +152,7 @@ char DDodgy6502::CPX(){
 }
 
 // compare with Y
-char DDodgy6502::CPY(){
+char Dodgy6502::CPY() {
     temp = y - fetched;
     set_flag(FLAGS6502::N, NEGATIVE(temp));
     set_flag(FLAGS6502::Z, ZERO(temp));
@@ -161,7 +161,7 @@ char DDodgy6502::CPY(){
 }
 
 // decrement
-char DDodgy6502::DEC(){
+char Dodgy6502::DEC() {
     memory[abs_addr] = --fetched;
     set_flag(FLAGS6502::N, NEGATIVE(fetched));
     set_flag(FLAGS6502::Z, ZERO(fetched));
@@ -169,7 +169,7 @@ char DDodgy6502::DEC(){
 }
 
 // decrement X
-char DDodgy6502::DEX(){
+char Dodgy6502::DEX() {
     x--;
     set_flag(FLAGS6502::N, NEGATIVE(x));
     set_flag(FLAGS6502::Z, ZERO(x));
@@ -177,7 +177,7 @@ char DDodgy6502::DEX(){
 }
 
 // decrement Y
-char DDodgy6502::DEY(){
+char Dodgy6502::DEY() {
     y--;
     set_flag(FLAGS6502::N, NEGATIVE(y));
     set_flag(FLAGS6502::Z, ZERO(y));
@@ -185,7 +185,7 @@ char DDodgy6502::DEY(){
 }
 
 // exclusive or (with accumulator)
-char DDodgy6502::EOR(){
+char Dodgy6502::EOR() {
     a ^= fetched;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -193,7 +193,7 @@ char DDodgy6502::EOR(){
 }
 
 // increment
-char DDodgy6502::INC(){
+char Dodgy6502::INC() {
     memory[abs_addr] = ++fetched;
     set_flag(FLAGS6502::N, NEGATIVE(fetched));
     set_flag(FLAGS6502::Z, ZERO(fetched));
@@ -201,7 +201,7 @@ char DDodgy6502::INC(){
 }
 
 // increment X
-char DDodgy6502::INX(){
+char Dodgy6502::INX() {
     x++;
     set_flag(FLAGS6502::N, NEGATIVE(x));
     set_flag(FLAGS6502::Z, ZERO(x));
@@ -209,7 +209,7 @@ char DDodgy6502::INX(){
 }
 
 // increment Y
-char DDodgy6502::INY(){
+char Dodgy6502::INY() {
     y++;
     set_flag(FLAGS6502::N, NEGATIVE(y));
     set_flag(FLAGS6502::Z, ZERO(y));
@@ -217,20 +217,20 @@ char DDodgy6502::INY(){
 }
 
 // jump
-char DDodgy6502::JMP(){
+char Dodgy6502::JMP() {
     pc = abs_addr;
     return 0;
 }
 
 // jump subroutine
-char DDodgy6502::JSR(){
+char Dodgy6502::JSR() {
     push(pc+2);
     pc = abs_addr;
     return 0;
 }
 
 // load accumulator
-char DDodgy6502::LDA(){
+char Dodgy6502::LDA() {
     a = fetched;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -238,7 +238,7 @@ char DDodgy6502::LDA(){
 }
 
 // load X
-char DDodgy6502::LDX(){
+char Dodgy6502::LDX() {
     x = fetched;
     set_flag(FLAGS6502::N, NEGATIVE(x));
     set_flag(FLAGS6502::Z, ZERO(x));
@@ -246,7 +246,7 @@ char DDodgy6502::LDX(){
 }
 
 // load Y
-char DDodgy6502::LDY(){
+char Dodgy6502::LDY() {
     y = fetched;
     set_flag(FLAGS6502::N, NEGATIVE(y));
     set_flag(FLAGS6502::Z, ZERO(y));
@@ -254,13 +254,13 @@ char DDodgy6502::LDY(){
 }
 
 // logical shift right
-char DDodgy6502::LSR(){
+char Dodgy6502::LSR() {
     set_flag(FLAGS6502::C, fetched & 0x1);
     fetched >>= 1;
     set_flag(FLAGS6502::N, false);
     set_flag(FLAGS6502::Z, ZERO(fetched));
 
-    if(current_instruction->addr_mode == &DDodgy6502::imp)
+    if(current_instruction->addr_mode == &Dodgy6502::imp)
         a = fetched;
     else
         memory[abs_addr] = fetched;
@@ -269,12 +269,12 @@ char DDodgy6502::LSR(){
 }
 
 // no operation
-char DDodgy6502::NOP(){
+char Dodgy6502::NOP() {
     return 0;
 }
 
 // or with accumulator
-char DDodgy6502::ORA(){
+char Dodgy6502::ORA() {
     a |= fetched;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -282,19 +282,19 @@ char DDodgy6502::ORA(){
 }
 
 // push accumulator
-char DDodgy6502::PHA(){
+char Dodgy6502::PHA() {
     push(a);
     return 0;
 }
 
 // push processor status (SR)
-char DDodgy6502::PHP(){
+char Dodgy6502::PHP() {
     push(sb);
     return 0;
 }
 
 // pull accumulator
-char DDodgy6502::PLA(){
+char Dodgy6502::PLA() {
     a = pop();
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -302,20 +302,20 @@ char DDodgy6502::PLA(){
 }
 
 // pull processor status (SR)
-char DDodgy6502::PLP(){
+char Dodgy6502::PLP() {
     sb = pop();
     return 0;
 }
 
 // rotate left
-char DDodgy6502::ROL(){
+char Dodgy6502::ROL() {
     temp = NEGATIVE(fetched);
     fetched = (fetched << 1) | read_flag(FLAGS6502::C);
     set_flag(FLAGS6502::C, temp);
     set_flag(FLAGS6502::N, NEGATIVE(fetched));
     set_flag(FLAGS6502::Z, ZERO(fetched));
 
-    if(current_instruction->addr_mode == &DDodgy6502::imp)
+    if(current_instruction->addr_mode == &imp)
         a = fetched;
     else
         memory[abs_addr] = fetched;
@@ -324,14 +324,14 @@ char DDodgy6502::ROL(){
 }
 
 // rotate right
-char DDodgy6502::ROR(){
+char Dodgy6502::ROR() {
     temp = fetched & 0x1;
     fetched = (fetched >> 1) | (read_flag(FLAGS6502::C) << 7);
     set_flag(FLAGS6502::C, temp);
     set_flag(FLAGS6502::N, NEGATIVE(fetched));
     set_flag(FLAGS6502::Z, ZERO(fetched));
 
-    if(current_instruction->addr_mode == &DDodgy6502::imp)
+    if(current_instruction->addr_mode == &Dodgy6502::imp)
         a = fetched;
     else
         memory[abs_addr] = fetched;
@@ -340,7 +340,7 @@ char DDodgy6502::ROR(){
 }
 
 // return from interrupt
-char DDodgy6502::RTI(){
+char Dodgy6502::RTI() {
     sb = pop();
     pc = pop();
     pc |= pop() << 8;
@@ -348,53 +348,53 @@ char DDodgy6502::RTI(){
 }
 
 // return from subroutine
-char DDodgy6502::RTS(){
+char Dodgy6502::RTS() {
     pc = pop();
     pc |= pop() << 8;
     return 0;
 }
 
 // subtract with carry
-char DDodgy6502::SBC(){
+char Dodgy6502::SBC() {
     throw std::string("SBC instruction not implemented");
     return 0;
 }
 
 // set carry
-char DDodgy6502::SEC(){
+char Dodgy6502::SEC() {
     set_flag(FLAGS6502::C, true);
 }
 
 // set decimal
-char DDodgy6502::SED(){
+char Dodgy6502::SED() {
     set_flag(FLAGS6502::D, true);
 }
 
 // set interrupt disable
-char DDodgy6502::SEI(){
+char Dodgy6502::SEI() {
     set_flag(FLAGS6502::I, true);
 }
 
 // store accumulator
-char DDodgy6502::STA(){
+char Dodgy6502::STA() {
     memory[abs_addr] = a;
     return 0;
 }
 
 // store X
-char DDodgy6502::STX(){
+char Dodgy6502::STX() {
     memory[abs_addr] = x;
     return 0;
 }
 
 // store Y
-char DDodgy6502::STY(){
+char Dodgy6502::STY() {
     memory[abs_addr] = y;
     return 0;
 }
 
 // transfer accumulator to X
-char DDodgy6502::TAX(){
+char Dodgy6502::TAX() {
     x = a;
     set_flag(FLAGS6502::N, NEGATIVE(x));
     set_flag(FLAGS6502::Z, ZERO(x));
@@ -402,7 +402,7 @@ char DDodgy6502::TAX(){
 }
 
 // transfer accumulator to Y
-char DDodgy6502::TAY(){
+char Dodgy6502::TAY() {
     y = a;
     set_flag(FLAGS6502::N, NEGATIVE(y));
     set_flag(FLAGS6502::Z, ZERO(y));
@@ -410,7 +410,7 @@ char DDodgy6502::TAY(){
 }
 
 // transfer stack pointer to X
-char DDodgy6502::TSX(){
+char Dodgy6502::TSX() {
     x = sp;
     set_flag(FLAGS6502::N, NEGATIVE(x));
     set_flag(FLAGS6502::Z, ZERO(x));
@@ -418,7 +418,7 @@ char DDodgy6502::TSX(){
 }
 
 // transfer X to accumulator
-char DDodgy6502::TXA(){
+char Dodgy6502::TXA() {
     a = x;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
@@ -426,15 +426,23 @@ char DDodgy6502::TXA(){
 }
 
 // transfer X to stack pointer
-char DDodgy6502::TXS(){
+char Dodgy6502::TXS() {
     sp = x;
     return 0;
 }
 
 // transfer Y to accumulator
-char DDodgy6502::TYA(){
+char Dodgy6502::TYA() {
     a = y;
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
+    return 0;
+}
+
+
+
+int main(int argc, char* argv[]){
+    Dodgy6502 cpu;
+    cpu.run();
     return 0;
 }

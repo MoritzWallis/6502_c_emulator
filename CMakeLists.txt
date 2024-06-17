@@ -9,5 +9,4 @@ add_executable(6502
         addr_modes.cpp
         instructions.cpp
         impl_inst.cpp
-        impl_inst.h
 )

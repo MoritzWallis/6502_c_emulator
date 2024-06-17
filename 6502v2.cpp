@@ -7,7 +7,6 @@
 Dodgy6502::Dodgy6502(){
     memory = new byte[64*1024]; // 64KB RAM, 16 bit address space
     reset();
-    run();
 }
 
 Dodgy6502::~Dodgy6502(){
@@ -25,7 +24,7 @@ void Dodgy6502::set_flag(FLAGS6502 flag, bool v){
     if(v) sb |= flag; else sb &= ~flag;
 }
 
-bool Dodgy6502::read_flag(FLAGS6502 flag){
+bool Dodgy6502::read_flag(FLAGS6502 flag) const{
     return sb & flag;
 }
 
@@ -55,7 +54,3 @@ void Dodgy6502::run(){
     }
 }
 
-
-int main(int argc, char *argv[]){
-    return 0;
-}

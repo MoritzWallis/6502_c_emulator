@@ -53,7 +53,7 @@ public:
 
     // helper functions
     void set_flag(FLAGS6502 flag, bool v);
-    bool read_flag(FLAGS6502 flag);
+    bool read_flag(FLAGS6502 flag) const;
     void read_word(word address);
     void read_word(byte low, byte high);
 
@@ -71,13 +71,18 @@ public:
         byte zp();  // Zero Page
         byte zpx(); // Zero Page X
         byte zpy(); // Zero Page Y
+        //byte abs();  // Absolute == zp()
         byte abx(); // Absolute X
         byte aby(); // Absolute Y
         byte ind(); // Indirect
+        //byte izx();  // Indirect X == zpx()
+        //byte izy(); // Indirect Y == zpy()
 
+    // Instructions:
+    char ADC(); char AND(); char ASL(); char BCC(); char BCS(); char BEQ(); char BIT(); char BMI(); char BNE(); char BPL(); char BRK(); char BVC(); char BVS(); char CLC(); char CLD(); char CLI(); char CLV(); char CMP(); char CPX(); char CPY(); char DEC(); char DEX(); char DEY(); char EOR(); char INC(); char INX(); char INY(); char JMP(); char JSR(); char LDA(); char LDX(); char LDY(); char LSR(); char NOP(); char ORA(); char PHA(); char PHP(); char PLA(); char PLP(); char ROL(); char ROR(); char RTI(); char RTS(); char SBC(); char SEC(); char SED(); char SEI(); char STA(); char STX(); char STY(); char TAX(); char TAY(); char TSX(); char TXA(); char TXS(); char TYA();
 
     // Opcode lookup table (array of function pointers)
-    Instruction instructions[256];
+    static Instruction instructions[256];
 
     static void add_instruction(
             byte opc,

@@ -56,7 +56,7 @@ void Dodgy6502::add_instruction(
         const std::string &description = "NO DESCRIPTION"
 ){
 
-    Dodgy6502::instructions[opc] = {
+    instructions[opc] = {
             name,
             addr_mode,
             implementation,
