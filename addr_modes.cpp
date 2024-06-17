@@ -7,23 +7,23 @@ byte Dodgy6502::imp(){
 }
 
 byte Dodgy6502::imm(){
-    fetched = pc++; // max immediate value is 255/0xff
+    fetched = memory[pc++]; // max immediate value is 255/0xff
     return 0;
 }
 
 byte Dodgy6502::zp(){
-    fetched = memory[pc++];
+    fetched = memory[memory[pc++]];
     return 0;
 }
 
 byte Dodgy6502::zpx(){
-    abs_addr = memory[pc++] + x; // wraps around/overflows
+    abs_addr = 0xff & (memory[pc++] + x); // wraps around/overflows
     fetched = memory[abs_addr];
     return 0;
 }
 
 byte Dodgy6502::zpy(){
-    abs_addr = memory[pc++] + y; // wraps around
+    abs_addr = 0xff & (memory[pc++] + y); // wraps around/overflows
     fetched = memory[abs_addr];
     return 0;
 }

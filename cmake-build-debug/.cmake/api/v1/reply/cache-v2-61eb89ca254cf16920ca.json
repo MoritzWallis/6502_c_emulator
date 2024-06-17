@@ -875,7 +875,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Project"
+			"value" : "Dodgy6502"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1252,6 +1252,42 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "Dodgy6502_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/morit/Desktop/CODE/6502/6502_c_emulator/cmake-build-debug"
+		},
+		{
+			"name" : "Dodgy6502_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "Dodgy6502_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/morit/Desktop/CODE/6502/6502_c_emulator"
 		},
 		{
 			"name" : "Project_BINARY_DIR",

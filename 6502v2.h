@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <exception>
 
 #ifndef INC_6502_6502V2_H
 
@@ -82,9 +83,9 @@ public:
     byte ADC(); byte AND(); byte ASL(); byte BCC(); byte BCS(); byte BEQ(); byte BIT(); byte BMI(); byte BNE(); byte BPL(); byte BRK(); byte BVC(); byte BVS(); byte CLC(); byte CLD(); byte CLI(); byte CLV(); byte CMP(); byte CPX(); byte CPY(); byte DEC(); byte DEX(); byte DEY(); byte EOR(); byte INC(); byte INX(); byte INY(); byte JMP(); byte JSR(); byte LDA(); byte LDX(); byte LDY(); byte LSR(); byte NOP(); byte ORA(); byte PHA(); byte PHP(); byte PLA(); byte PLP(); byte ROL(); byte ROR(); byte RTI(); byte RTS(); byte SBC(); byte SEC(); byte SED(); byte SEI(); byte STA(); byte STX(); byte STY(); byte TAX(); byte TAY(); byte TSX(); byte TXA(); byte TXS(); byte TYA();
 
     // Opcode lookup table (array of function pointers)
-    static Instruction instructions[256];
+    Instruction instructions[256];
 
-    static void add_instruction(
+    void add_instruction(
             byte opc,
             const std::string &name, // "NOT NAMED"
             byte(Dodgy6502::*addr_mode)(),
@@ -93,7 +94,7 @@ public:
             const std::string &description // "NO DESCRIPTION"
     );
 
-    static void add_all_instructions();
+    void add_all_instructions();
 
 };
 

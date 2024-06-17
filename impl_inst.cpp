@@ -1,5 +1,5 @@
 #include "6502v2.h"
-#include <exception>
+#include <stdexcept>
 
 # define NEGATIVE(_a) (_a & 0x80)
 # define ZERO(_a) (_a == 0)
@@ -92,7 +92,7 @@ byte Dodgy6502::BPL() {
 
 // break / interrupt
 byte Dodgy6502::BRK() {
-    throw std::string("BRK instruction not implemented");
+    throw std::runtime_error("BRK instruction not implemented");
 }
 
 // branch on overflow clear
@@ -356,7 +356,7 @@ byte Dodgy6502::RTS() {
 
 // subtract with carry
 byte Dodgy6502::SBC() {
-    throw std::string("SBC instruction not implemented");
+    throw std::runtime_error("SBC instruction not implemented");
     return 0;
 }
 
