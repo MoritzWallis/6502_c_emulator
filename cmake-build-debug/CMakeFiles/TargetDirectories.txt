@@ -1,3 +1,2 @@
-C:/Users/morit/Desktop/CODE/6502/6502_c_emulator/cmake-build-debug/CMakeFiles/6502.dir
 C:/Users/morit/Desktop/CODE/6502/6502_c_emulator/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/morit/Desktop/CODE/6502/6502_c_emulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir

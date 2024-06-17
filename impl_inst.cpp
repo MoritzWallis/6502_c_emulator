@@ -32,7 +32,7 @@ byte Dodgy6502::ASL() {
     set_flag(FLAGS6502::N, NEGATIVE(a));
     set_flag(FLAGS6502::Z, ZERO(a));
 
-    if(current_instruction->addr_mode == &imp)
+    if(current_instruction->addr_mode == &Dodgy6502::imp)
         a = temp;
     else
         memory[abs_addr] = temp;
@@ -315,7 +315,7 @@ byte Dodgy6502::ROL() {
     set_flag(FLAGS6502::N, NEGATIVE(fetched));
     set_flag(FLAGS6502::Z, ZERO(fetched));
 
-    if(current_instruction->addr_mode == &imp)
+    if(current_instruction->addr_mode == &Dodgy6502::imp)
         a = fetched;
     else
         memory[abs_addr] = fetched;
@@ -363,16 +363,19 @@ byte Dodgy6502::SBC() {
 // set carry
 byte Dodgy6502::SEC() {
     set_flag(FLAGS6502::C, true);
+    return 0;
 }
 
 // set decimal
 byte Dodgy6502::SED() {
     set_flag(FLAGS6502::D, true);
+    return 0;
 }
 
 // set interrupt disable
 byte Dodgy6502::SEI() {
     set_flag(FLAGS6502::I, true);
+    return 0;
 }
 
 // store accumulator
