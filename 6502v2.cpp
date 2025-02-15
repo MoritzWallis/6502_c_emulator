@@ -5,6 +5,7 @@
 
 Dodgy6502::Dodgy6502(){
     add_all_instructions();
+    get_interaction = _get_interaction;
     memory = new byte[64*1024]; // 64KB RAM, 16 bit address space
     memset(memory, 0x1a, 64*1024); // 0x1a = NOP - set all memory to NOP
     reset();
@@ -47,13 +48,64 @@ byte Dodgy6502::pop(){
 void Dodgy6502::irq(){}
 void Dodgy6502::nmi(){}
 
-void Dodgy6502::run(){
+/*
+ enum FLAGS6502{
+        C = (1 << 0), // Carry Bit
+        Z = (1 << 1), // Zero
+        I = (1 << 2), // Disable Interrupts
+        D = (1 << 3), // Decimal Mode
+        B = (1 << 4), // Break
+        COMPLETE = (1 << 5), // originally unused
+        V = (1 << 6), // Overflow
+        N = (1 << 7), // Negative
+    } flags;
+ */
+
+void Dodgy6502::_get_interaction(char answer){
+switch(answer){
+    case ' ':
+    case '\n':
+        break;
+    case 'l':
+        // print last values
+        break;
+    case 't':
+        // call_terminal();
+    case 'r':
+        // reset();
+        break;
+    case 27: // ESC
+        exit(0);
+        break;
+    default:
+        throw std::runtime_error("Invalid input");
+        break;
+}
+}
+
+void Dodgy6502::display_info(int mem_neigh_size = 10){
+    // print out the registers and flags
+    std::cout << "  PC: " << pc << "  SP: " << (int)sp << "  SB: " << (int)sb << \
+    '\n' << '\n' << "  A: " << (int)a << "  X: " << (int)x << "  Y: " << (int)y << \
+    '\n' << "  C: " << read_flag(C) << "  Z: " << read_flag(Z) << "  I: " << read_flag(I) << "  D: " << read_flag(D) << "  B: " << read_flag(B) << "  V: " << read_flag(V) << "  N: " << read_flag(N)<<
+    '\n' << '\n' << std::endl;
+
+    // Printout current memory neighboured
+    byte first_neigh = (pc - mem_neigh_size) < 0 ? 0 : pc - mem_neigh_size;
+    for(int i = first_neigh; i < pc + mem_neigh_size; i++){
+        std::cout << "   " << i << ": " << (int)memory[i] << std::endl;
+    }
+
+    char answer;
+    std::cin.get(answer);
+    get_interaction(answer)();
+}
+
+void Dodgy6502::step(){
     try{
-        while(true){
-            current_instruction = &instructions[memory[pc++]];
-            (this->*current_instruction->addr_mode)();
-            (this->*current_instruction->implementation)();
-        }
+        current_instruction = &instructions[memory[pc++]];
+        (this->*current_instruction->addr_mode)();
+        (this->*current_instruction->implementation)();
 
     } catch(std::exception& e)
     {
@@ -62,6 +114,17 @@ void Dodgy6502::run(){
         std::cin.get();
         raise;
     }
+}
+
+void Dodgy6502::run(){
+    while(true){
+        step();
+    }
+}
+
+void Dodgy6502::info_step(){
+    step();
+    display_info();
 }
 
 int main(int argc, char* argv[]){
