@@ -122,9 +122,13 @@ void Dodgy6502::step(){
 }
 
 [[noreturn]] void Dodgy6502::run(bool info = false){
-    if(info) while(true) info_step();
-    else
-             while(true) step();
+    if(info){
+        while(true)
+            info_step();
+    }else{
+        while(true) 
+            step();
+    }
 }
 
 void Dodgy6502::info_step(){
@@ -134,10 +138,8 @@ void Dodgy6502::info_step(){
 
 int main(int argc, char* argv[]){
     Dodgy6502 cpu;
-    //byte rom[] = {0x09, 0x11, 0x2A}; // ORA IMM, ROL ACC
-    byte rom[] = {
-
-    }; // ADC IMM, ROL ACC
+    byte rom[] = {0x09, 0x11, 0x2A}; // ORA IMM, ROL ACC
+    //byte rom[] = {}; // ADC IMM, ROL ACC
     cpu.load_memory(&rom[0], sizeof(rom), ROM_LOCATION);
     cpu.run(true);
     return 0;
