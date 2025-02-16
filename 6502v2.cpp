@@ -5,7 +5,6 @@
 
 Dodgy6502::Dodgy6502(){
     add_all_instructions();
-    get_interaction = _get_interaction;
     memory = new byte[64*1024]; // 64KB RAM, 16 bit address space
     memset(memory, 0x1a, 64*1024); // 0x1a = NOP - set all memory to NOP
     reset();
@@ -48,6 +47,18 @@ byte Dodgy6502::pop(){
 void Dodgy6502::irq(){}
 void Dodgy6502::nmi(){}
 
+void Dodgy6502::print_mem_around_location (int num_of_mem_adr = 4,  int in_a_row = 8) const{
+    int start_adr_n = (pc - num_of_mem_adr) < 0 ? 0 : pc - num_of_mem_adr;
+    for(int i = 0; i < num_of_mem_adr*2; i++) {
+        (i == num_of_mem_adr) ? std::cout << "    ->\t" : std::cout << "\t";
+
+            std::cout << start_adr_n + i*in_a_row << ":" << '\t';
+            for(int j = 0; j < in_a_row; j++)
+                std::cout <<  printf("%i", (char)memory[start_adr_n + i + j]) << " ";
+        std::cout << '\n';
+    }
+}
+
 /*
  enum FLAGS6502{
         C = (1 << 0), // Carry Bit
@@ -61,44 +72,38 @@ void Dodgy6502::nmi(){}
     } flags;
  */
 
-void Dodgy6502::_get_interaction(char answer){
-switch(answer){
-    case ' ':
-    case '\n':
-        break;
-    case 'l':
-        // print last values
-        break;
-    case 't':
-        // call_terminal();
-    case 'r':
-        // reset();
-        break;
-    case 27: // ESC
-        exit(0);
-        break;
-    default:
-        throw std::runtime_error("Invalid input");
-        break;
-}
+void complete_interaction(char answer){
+    switch(answer){
+        case ' ':
+        case '\n':
+            break;
+        case 'l':
+            // print last values
+            break;
+        case 't':
+            // call_terminal();
+        case 'r':
+            // reset();
+            break;
+        case 27: // ESC
+            exit(0);
+            break;
+        std::cin.get();
+    }
 }
 
-void Dodgy6502::display_info(int mem_neigh_size = 10){
+void Dodgy6502::display_info(int mem_neigh_size = 4){
     // print out the registers and flags
-    std::cout << "  PC: " << pc << "  SP: " << (int)sp << "  SB: " << (int)sb << \
-    '\n' << '\n' << "  A: " << (int)a << "  X: " << (int)x << "  Y: " << (int)y << \
-    '\n' << "  C: " << read_flag(C) << "  Z: " << read_flag(Z) << "  I: " << read_flag(I) << "  D: " << read_flag(D) << "  B: " << read_flag(B) << "  V: " << read_flag(V) << "  N: " << read_flag(N)<<
-    '\n' << '\n' << std::endl;
+    std::cout << "  PC:" << pc << "  SP:" << (int)sp << " SB: " << (int)sb << \
+    '\n' << "  A:" << (int)a << "  X:" << (int)x << "  Y:" << (int)y << \
+     "  C: " << read_flag(C) << "  Z:" << read_flag(Z) << "  I:" << read_flag(I) << "  D:" << read_flag(D) << "  B:" << read_flag(B) << "  V:" << read_flag(V) << "  N:" << read_flag(N)<< std::endl;
 
     // Printout current memory neighboured
-    byte first_neigh = (pc - mem_neigh_size) < 0 ? 0 : pc - mem_neigh_size;
-    for(int i = first_neigh; i < pc + mem_neigh_size; i++){
-        std::cout << "   " << i << ": " << (int)memory[i] << std::endl;
-    }
+    print_mem_around_location(mem_neigh_size);
 
     char answer;
     std::cin.get(answer);
-    get_interaction(answer)();
+    complete_interaction(answer);
 }
 
 void Dodgy6502::step(){
@@ -116,10 +121,10 @@ void Dodgy6502::step(){
     }
 }
 
-void Dodgy6502::run(){
-    while(true){
-        step();
-    }
+[[noreturn]] void Dodgy6502::run(bool info = false){
+    if(info) while(true) info_step();
+    else
+             while(true) step();
 }
 
 void Dodgy6502::info_step(){
@@ -129,8 +134,11 @@ void Dodgy6502::info_step(){
 
 int main(int argc, char* argv[]){
     Dodgy6502 cpu;
-    byte rom[] = {0x09, 0x11, 0x2A}; // ORA IMM, ROL ACC
+    //byte rom[] = {0x09, 0x11, 0x2A}; // ORA IMM, ROL ACC
+    byte rom[] = {
+
+    }; // ADC IMM, ROL ACC
     cpu.load_memory(&rom[0], sizeof(rom), ROM_LOCATION);
-    cpu.run();
+    cpu.run(true);
     return 0;
 }

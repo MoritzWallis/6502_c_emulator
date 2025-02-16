@@ -28,11 +28,10 @@ public:
     void irq(); // maskable interrupt
     void nmi(); // non-maskabl e interrupt
     void load_rom(const char *filename);
-    void _get_interaction(char answer);
-    void (*get_interaction)(char); // char answer
+    void print_mem_around_location(int num_of_mem_adr,  int in_a_row) const;
     void display_info(int mem_neigh_size);
     void step();
-    void run();
+    [[noreturn]] void run(bool info);
     void info_step();
     byte read(word address) const;
     void write(word address, byte data);
@@ -102,6 +101,8 @@ public:
     );
 
     void add_all_instructions();
+
+
 };
 
 #define INC_6502_6502V2_H
